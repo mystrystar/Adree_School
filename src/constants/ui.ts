@@ -40,6 +40,8 @@ export const LOGIN_DEMO_PASSWORD = 'Password123'
 export const ERROR_MESSAGE = 'We could not load the student records right now. Please retry in a moment.'
 export const ERROR_TITLE = 'Something went wrong'
 export const ERROR_RETRY_BUTTON = 'Retry'
+export const APP_ERROR_TITLE = 'Unable to load the application'
+export const APP_ERROR_MESSAGE = 'Something unexpected happened while loading the dashboard. Please try again.'
 
 export const EMPTY_MESSAGE = 'Try clearing the filters or searching with a different name or email.'
 export const EMPTY_TITLE = 'No students found'

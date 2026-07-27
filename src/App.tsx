@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LoadingState } from './components/LoadingState'
 import { AlertTriangle, RefreshCw } from 'lucide-react'
-import { AUTH_STORAGE_KEY } from './constants/ui'
+import { APP_ERROR_MESSAGE, APP_ERROR_TITLE, AUTH_STORAGE_KEY, ERROR_RETRY_BUTTON } from './constants/ui'
 
 const LoginPage = lazy(() => import('./pages/LoginPage').then((module) => ({ default: module.LoginPage })))
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })))
@@ -42,12 +42,11 @@ const ErrorFallback = () => (
       </div>
 
       <h1 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
-        Unable to load the application
+        {APP_ERROR_TITLE}
       </h1>
 
       <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-        Something unexpected happened while loading the dashboard.
-        Please try again.
+        {APP_ERROR_MESSAGE}
       </p>
 
       <button
@@ -55,7 +54,7 @@ const ErrorFallback = () => (
         className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#173D6D] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#102C54]"
       >
         <RefreshCw size={18} />
-        Retry
+        {ERROR_RETRY_BUTTON}
       </button>
     </div>
   </div>
