@@ -1,3 +1,1 @@
-export default {
-  darkMode: 'class',
-}
+export default {}

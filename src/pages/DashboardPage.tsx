@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Moon, SunMedium, Search, ArrowUpDown, SlidersHorizontal, X } from 'lucide-react'
+import {  Search, ArrowUpDown, SlidersHorizontal, X } from 'lucide-react'
 import { useDebounce } from '../hooks/useDebounce'
 import { useStudents } from '../hooks/useStudents'
 import { StudentCard } from '../components/StudentCard'
@@ -8,14 +8,12 @@ import { StudentDetailsDrawer } from '../components/StudentDetailsDrawer'
 import { LoadingState } from '../components/LoadingState'
 import { ErrorState } from '../components/ErrorState'
 import { EmptyState } from '../components/EmptyState'
-import { useTheme } from '../contexts/ThemeContext'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { COMPANY_SEARCH_PLACEHOLDER, SEARCH_PLACEHOLDER, SORT_OPTIONS } from '../constants/ui'
 import type { Student } from '../types/student'
 
 export const DashboardPage = () => {
-  const { theme, toggleTheme } = useTheme()
   const [search, setSearch] = useState('')
   const [companySearch, setCompanySearch] = useState('')
   const [sort, setSort] = useState<'asc' | 'desc'>('asc')
@@ -176,14 +174,7 @@ export const DashboardPage = () => {
                       ))}
                     </select>
                   </label>
-                  {/* <button
-                    type="button"
-                    onClick={toggleTheme}
-                    className="inline-flex h-14 min-w-[64px] items-center justify-center rounded-3xl border border-[#E5E7EB] bg-white px-4 text-slate-700 transition hover:border-[#4F46E5] hover:bg-[#EFF6FF] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
-                    aria-label="Toggle theme"
-                  >
-                    {theme === 'dark' ? <SunMedium size={18} /> : <Moon size={18} />}
-                  </button> */}
+
                 </div>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-3xl border border-[#E5E7EB] bg-white p-4 shadow-sm sm:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">

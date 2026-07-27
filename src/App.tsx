@@ -2,7 +2,6 @@ import { Suspense, lazy, useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ErrorBoundary } from 'react-error-boundary'
-import { ThemeProvider, useTheme } from './contexts/ThemeContext'
 import { LoadingState } from './components/LoadingState'
 
 const LoginPage = lazy(() => import('./pages/LoginPage').then((module) => ({ default: module.LoginPage })))
@@ -11,7 +10,6 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) =
 const queryClient = new QueryClient()
 
 const AppShell = () => {
-  const { theme } = useTheme()
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     if (typeof window === 'undefined') return false
     return window.localStorage.getItem('student-dashboard-auth') === 'true'
@@ -22,7 +20,7 @@ const AppShell = () => {
   }, [isAuthenticated])
 
   return (
-    <div className={theme === 'dark' ? 'dark' : ''}>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage onLogin={() => setIsAuthenticated(true)} />} />
@@ -45,13 +43,11 @@ const ErrorFallback = () => (
 function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <ThemeProvider>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<LoadingState />}>
-            <AppShell />
-          </Suspense>
-        </QueryClientProvider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <Suspense fallback={<LoadingState />}>
+          <AppShell />
+        </Suspense>
+      </QueryClientProvider>
     </ErrorBoundary>
   )
 }
