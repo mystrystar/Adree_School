@@ -2,11 +2,25 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
+import {
+  LOGIN_TITLE,
+  LOGIN_SUBTITLE,
+  LOGIN_EMAIL_LABEL,
+  LOGIN_PASSWORD_LABEL,
+  LOGIN_EMAIL_REQUIRED,
+  LOGIN_EMAIL_INVALID,
+  LOGIN_PASSWORD_REQUIRED,
+  LOGIN_PASSWORD_MIN,
+  LOGIN_SUBMIT,
+  LOGIN_SUBMITTING,
+  LOGIN_DEMO_EMAIL,
+  LOGIN_DEMO_PASSWORD,
+} from '../constants/ui'
 import type { LoginFormValues } from '../types/student'
 
 const loginSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Enter a valid email address'),
-  password: z.string().min(1, 'Password is required').min(6, 'Password must be at least 6 characters'),
+  email: z.string().min(1, LOGIN_EMAIL_REQUIRED).email(LOGIN_EMAIL_INVALID),
+  password: z.string().min(1, LOGIN_PASSWORD_REQUIRED).min(6, LOGIN_PASSWORD_MIN),
 })
 
 interface LoginFormProps {
@@ -21,8 +35,8 @@ export const LoginForm = ({ onSubmitSuccess }: LoginFormProps) => {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'demo@adree.test',
-      password: 'Password123',
+      email: LOGIN_DEMO_EMAIL,
+      password: LOGIN_DEMO_PASSWORD,
     },
   })
 
@@ -38,12 +52,12 @@ export const LoginForm = ({ onSubmitSuccess }: LoginFormProps) => {
       noValidate
     >
       <div className="mb-6">
-        <h1 className="mt-2 text-2xl font-bold text-slate-950 dark:text-slate-50">Welcome Back</h1>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Sign in to continue to your student dashboard.</p>
+        <h1 className="mt-2 text-2xl font-bold text-slate-950 dark:text-slate-50">{LOGIN_TITLE}</h1>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{LOGIN_SUBTITLE}</p>
       </div>
 
       <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" htmlFor="email">
-        Email
+        {LOGIN_EMAIL_LABEL}
       </label>
       <input
         id="email"
@@ -55,7 +69,7 @@ export const LoginForm = ({ onSubmitSuccess }: LoginFormProps) => {
       {errors.email && <p className="mb-3 text-sm text-rose-500">{errors.email.message}</p>}
 
       <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" htmlFor="password">
-        Password
+        {LOGIN_PASSWORD_LABEL}
       </label>
       <input
         id="password"
@@ -71,7 +85,7 @@ export const LoginForm = ({ onSubmitSuccess }: LoginFormProps) => {
         disabled={isSubmitting}
         className="mt-2 h-14 w-full rounded-xl bg-[#173D6D] px-6 text-base font-semibold text-white transition hover:bg-[#122d58] disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {isSubmitting ? 'Signing in…' : 'Sign in'}
+        {isSubmitting ? LOGIN_SUBMITTING : LOGIN_SUBMIT}
       </button>
     </motion.form>
   )

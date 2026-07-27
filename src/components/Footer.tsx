@@ -1,4 +1,5 @@
 import FooterLogo from '../hooks/assets/adree school footer.png'
+import { FOOTER_COPY, FOOTER_ALT } from '../constants/ui'
 
 export const Footer = () => {
   return (
@@ -7,12 +8,12 @@ export const Footer = () => {
 
         <img
           src={FooterLogo}
-          alt="Adree School"
+          alt={FOOTER_ALT}
           className="h-12 w-[180px] object-cover object-left"
         />
 
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          © 2026 Adree School
+          {FOOTER_COPY}
         </p>
 
       </div>

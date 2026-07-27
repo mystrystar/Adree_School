@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Logo from '../hooks/assets/adree_logo.svg'
-import { APP_TITLE } from '../constants/ui'
+import { APP_TITLE, DASHBOARD_LABEL, PROFILE_ARIA_LABEL, LOGOUT_TEXT } from '../constants/ui'
 
 export const Header = ({ compact }: { compact?: boolean } = {}) => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -23,7 +23,7 @@ export const Header = ({ compact }: { compact?: boolean } = {}) => {
           {!compact ? (
             <div className="hidden sm:block">
               <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
-                Student Dashboard
+                {DASHBOARD_LABEL}
               </p>
               <h1 className="text-2xl font-bold text-[#173D6D]">{APP_TITLE}</h1>
             </div>
@@ -32,7 +32,7 @@ export const Header = ({ compact }: { compact?: boolean } = {}) => {
 
         <div className="relative">
           <button
-            aria-label="Profile"
+            aria-label={PROFILE_ARIA_LABEL}
             onClick={() => setMenuOpen((s) => !s)}
             className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#173D6D] text-sm font-semibold text-white shadow-sm transition hover:bg-[#122d58]"
           >
@@ -45,7 +45,7 @@ export const Header = ({ compact }: { compact?: boolean } = {}) => {
                 onClick={handleLogout}
                 className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
               >
-                Logout
+                {LOGOUT_TEXT}
               </button>
             </div>
           ) : null}
