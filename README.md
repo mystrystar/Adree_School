@@ -19,14 +19,6 @@ npm install
 npm run dev
 ```
 
-Production build:
-
-```bash
-npm run build
-```
-
----
-
 ## 🛠 Tech Stack
 
 - React 19
