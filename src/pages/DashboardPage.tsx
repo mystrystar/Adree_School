@@ -185,7 +185,7 @@ export const DashboardPage = () => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    exit={{ opacity: 0, transition: { delay: 0.3, duration: 0.2 } }}
                     className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-sm"
                     onClick={() => setIsFilterDrawerOpen(false)}
                   >
@@ -193,7 +193,7 @@ export const DashboardPage = () => {
                       initial={{ y: '100%' }}
                       animate={{ y: 0 }}
                       exit={{ y: '100%' }}
-                      transition={{ type: 'spring', damping: 22, stiffness: 260 }}
+                      transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
                       className="absolute inset-x-0 top-6 bottom-0 h-[calc(100vh-3rem)] overflow-hidden rounded-t-3xl border border-[#E5E7EB] bg-white shadow-2xl"
                       onClick={(event) => event.stopPropagation()}
                     >

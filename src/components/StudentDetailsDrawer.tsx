@@ -8,13 +8,14 @@ interface StudentDetailsDrawerProps {
 }
 
 export const StudentDetailsDrawer = ({ student, onClose }: StudentDetailsDrawerProps) => {
-  if (!student) return null
-
-  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(student.name)}&background=4f46e5&color=fff&size=128`
+  const avatarUrl = student
+    ? `https://ui-avatars.com/api/?name=${encodeURIComponent(student.name)}&background=4f46e5&color=fff&size=128`
+    : ''
 
   return (
     <AnimatePresence>
-      <motion.div
+      {student ? (
+        <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -91,7 +92,8 @@ export const StudentDetailsDrawer = ({ student, onClose }: StudentDetailsDrawerP
             </div>
           </div>
         </motion.aside>
-      </motion.div>
+        </motion.div>
+      ) : null}
     </AnimatePresence>
   )
 }
