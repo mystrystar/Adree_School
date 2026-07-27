@@ -1,9 +1,10 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import type { SortDirection } from '../constants/ui'
 import { fetchStudents } from '../lib/api'
 import type { Student } from '../types/student'
 
-export const useStudents = (search: string, companyFilter: string[], sort: 'asc' | 'desc') => {
+export const useStudents = (search: string, companyFilter: string[], sort: SortDirection) => {
   const queryClient = useQueryClient()
 
   const query = useQuery<Student[]>({

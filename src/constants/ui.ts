@@ -3,10 +3,9 @@ export const APP_TITLE = 'Adree School'
 export const FOOTER_ALT = 'Adree School'
 export const PROFILE_ARIA_LABEL = 'Profile'
 export const LOGOUT_TEXT = 'Logout'
+export const AUTH_STORAGE_KEY = 'student-dashboard-auth'
 
-// Dashboard
 export const DASHBOARD_LABEL = 'Student Dashboard'
-export const DASHBOARD_SUBTITLE = 'Explore your student cohort'
 
 // Search & Filters
 export const SEARCH_PLACEHOLDER = 'Search students by name or email...'
@@ -54,3 +53,5 @@ export const SORT_OPTIONS = [
   { value: 'asc', label: 'Name A-Z' },
   { value: 'desc', label: 'Name Z-A' },
 ] as const
+
+export type SortDirection = (typeof SORT_OPTIONS)[number]['value']

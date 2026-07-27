@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LoadingState } from './components/LoadingState'
 import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { AUTH_STORAGE_KEY } from './constants/ui'
 
 const LoginPage = lazy(() => import('./pages/LoginPage').then((module) => ({ default: module.LoginPage })))
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })))
@@ -13,11 +14,11 @@ const queryClient = new QueryClient()
 const AppShell = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     if (typeof window === 'undefined') return false
-    return window.localStorage.getItem('student-dashboard-auth') === 'true'
+    return window.localStorage.getItem(AUTH_STORAGE_KEY) === 'true'
   })
 
   useEffect(() => {
-    window.localStorage.setItem('student-dashboard-auth', isAuthenticated ? 'true' : 'false')
+    window.localStorage.setItem(AUTH_STORAGE_KEY, String(isAuthenticated))
   }, [isAuthenticated])
 
   return (

@@ -1,17 +1,12 @@
 import { useState } from 'react'
 import Logo from '../hooks/assets/adree_logo.svg'
-import { APP_TITLE, DASHBOARD_LABEL, PROFILE_ARIA_LABEL, LOGOUT_TEXT } from '../constants/ui'
+import { APP_TITLE, AUTH_STORAGE_KEY, DASHBOARD_LABEL, LOGOUT_TEXT, PROFILE_ARIA_LABEL } from '../constants/ui'
 
-export const Header = ({ compact }: { compact?: boolean } = {}) => {
+export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleLogout = () => {
-    try {
-      window.localStorage.setItem('student-dashboard-auth', 'false')
-    } catch (e) {
-      /* ignore */
-    }
-    // navigate back to login
+    window.localStorage.setItem(AUTH_STORAGE_KEY, 'false')
     window.location.href = '/'
   }
 
@@ -20,14 +15,12 @@ export const Header = ({ compact }: { compact?: boolean } = {}) => {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
           <img src={Logo} alt={APP_TITLE} className="h-14 w-auto" />
-          {!compact ? (
-            <div className="hidden sm:block">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
-                {DASHBOARD_LABEL}
-              </p>
-              <h1 className="text-2xl font-bold text-[#173D6D]">{APP_TITLE}</h1>
-            </div>
-          ) : null}
+          <div className="hidden sm:block">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
+              {DASHBOARD_LABEL}
+            </p>
+            <h1 className="text-2xl font-bold text-[#173D6D]">{APP_TITLE}</h1>
+          </div>
         </div>
 
         <div className="relative">

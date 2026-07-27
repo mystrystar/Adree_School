@@ -10,8 +10,13 @@ describe('login form', () => {
 
     const user = userEvent.setup()
 
-    await user.type(screen.getByLabelText(/email/i), 'student@example.com')
-    await user.type(screen.getByLabelText(/password/i), 'secret123')
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+
+    await user.clear(emailInput)
+    await user.type(emailInput, 'student@example.com')
+    await user.clear(passwordInput)
+    await user.type(passwordInput, 'secret123')
     await user.click(screen.getByRole('button', { name: /sign in/i }))
 
     expect(handleLogin).toHaveBeenCalledTimes(1)

@@ -27,8 +27,3 @@ export interface Student {
   company: Company
   address: Address
 }
-
-export interface LoginFormValues {
-  email: string
-  password: string
-}

@@ -16,12 +16,12 @@ import {
   LOGIN_DEMO_EMAIL,
   LOGIN_DEMO_PASSWORD,
 } from '../constants/ui'
-import type { LoginFormValues } from '../types/student'
-
 const loginSchema = z.object({
   email: z.string().min(1, LOGIN_EMAIL_REQUIRED).email(LOGIN_EMAIL_INVALID),
   password: z.string().min(1, LOGIN_PASSWORD_REQUIRED).min(6, LOGIN_PASSWORD_MIN),
 })
+
+type LoginFormValues = z.infer<typeof loginSchema>
 
 interface LoginFormProps {
   onSubmitSuccess: () => void
@@ -40,7 +40,7 @@ export const LoginForm = ({ onSubmitSuccess }: LoginFormProps) => {
     },
   })
 
-  const onSubmit = (_values: LoginFormValues) => {
+  const onSubmit = () => {
     onSubmitSuccess()
   }
   return (
