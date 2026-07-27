@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import {  Search, ArrowUpDown, SlidersHorizontal, X } from 'lucide-react'
+import { Search, ArrowUpDown, SlidersHorizontal, X } from 'lucide-react'
 import { useDebounce } from '../hooks/useDebounce'
 import { useStudents } from '../hooks/useStudents'
 import { StudentCard } from '../components/StudentCard'
@@ -64,7 +64,7 @@ export const DashboardPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 transition-colors">
       <Header />
 
       <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
@@ -159,7 +159,7 @@ export const DashboardPage = () => {
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <label className="hidden h-14 items-center gap-2 rounded-3xl border border-[#E5E7EB] bg-white px-4 text-sm sm:flex dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                          <label className="hidden h-14 items-center gap-2 rounded-3xl border border-[#E5E7EB] bg-white px-4 text-sm sm:flex">
                     <ArrowUpDown size={18} />
                     <select
                       aria-label="Sort students"
@@ -177,7 +177,7 @@ export const DashboardPage = () => {
 
                 </div>
               </div>
-              <div className="flex items-center justify-between gap-3 rounded-3xl border border-[#E5E7EB] bg-white p-4 shadow-sm sm:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+              <div className="flex items-center justify-between gap-3 rounded-3xl border border-[#E5E7EB] bg-white p-4 shadow-sm sm:hidden">
                 <button
                   type="button"
                   onClick={() => setIsFilterDrawerOpen(true)}
@@ -202,73 +202,99 @@ export const DashboardPage = () => {
                       animate={{ y: 0 }}
                       exit={{ y: '100%' }}
                       transition={{ type: 'spring', damping: 22, stiffness: 260 }}
-                      className="absolute bottom-0 left-0 right-0 rounded-t-3xl border border-[#E5E7EB] bg-white p-6 pb-8 shadow-2xl"
+                      className="absolute inset-x-0 top-6 bottom-0 h-[calc(100vh-3rem)] overflow-hidden rounded-t-3xl border border-[#E5E7EB] bg-white shadow-2xl"
                       onClick={(event) => event.stopPropagation()}
                     >
-                      <div className="mb-5 flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#173D6D]">Filters</p>
-                          <p className="mt-1 text-sm text-slate-500">By employer</p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setIsFilterDrawerOpen(false)}
-                          className="rounded-full border border-[#E5E7EB] p-2 text-slate-600 transition hover:bg-slate-100"
-                          aria-label="Close filter drawer"
-                        >
-                          <X size={18} />
-                        </button>
-                      </div>
-
-                      <label className="mb-4 block rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-3 text-sm shadow-sm dark:border-slate-700 dark:bg-slate-950">
-                        <input
-                          type="text"
-                          value={companySearch}
-                          onChange={(event) => setCompanySearch(event.target.value)}
-                          placeholder={COMPANY_SEARCH_PLACEHOLDER}
-                          className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400 dark:text-slate-100 dark:placeholder:text-slate-500"
-                        />
-                      </label>
-
-                      <div className="max-h-[280px] space-y-2 overflow-y-auto pr-1">
-                        {visibleCompanies.map((company) => {
-                          const active = selectedCompanies.includes(company)
-                          return (
-                            <label
-                              key={company}
-                              className={`flex cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 text-sm transition ${
-                                active
-                                  ? 'border-[#4F46E5] bg-[#EFF6FF] text-[#173D6D]'
-                                  : 'border-[#E5E7EB] bg-white text-slate-700 hover:border-[#4F46E5]'
-                              }`}
+                      <div className="flex h-full flex-col">
+                        <div className="border-b border-slate-200 px-6 py-5 dark:border-slate-700">
+                          <div className="mb-5 flex items-center justify-between">
+                            <div>
+                              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#173D6D]">Filters</p>
+                              <p className="mt-1 text-sm text-slate-500">By employer</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setIsFilterDrawerOpen(false)}
+                              className="rounded-full border border-[#E5E7EB] p-2 text-slate-600 transition hover:bg-slate-100"
+                              aria-label="Close filter drawer"
                             >
-                              <span>{company}</span>
+                              <X size={18} />
+                            </button>
+                          </div>
+
+                          <div className="grid gap-3">
+                            <label className="block rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-3 text-sm shadow-sm">
                               <input
-                                type="checkbox"
-                                checked={active}
-                                onChange={() => toggleCompany(company)}
-                                className="h-4 w-4 rounded border-[#E5E7EB] text-[#4F46E5] focus:ring-[#4F46E5]"
+                                type="text"
+                                value={companySearch}
+                                onChange={(event) => setCompanySearch(event.target.value)}
+                                placeholder={COMPANY_SEARCH_PLACEHOLDER}
+                                className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
                               />
                             </label>
-                          )
-                        })}
-                      </div>
 
-                      <div className="mt-5 space-y-3">
-                        <button
-                          type="button"
-                          onClick={clearFilters}
-                          className="w-full rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-3 text-sm font-semibold text-[#173D6D] transition hover:bg-[#EFF6FF]"
-                        >
-                          Reset filters
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setIsFilterDrawerOpen(false)}
-                          className="w-full rounded-3xl bg-[#173D6D] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#122d58]"
-                        >
-                          Apply filters
-                        </button>
+                            <label className="flex items-center gap-3 rounded-3xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm shadow-sm">
+                              <ArrowUpDown size={18} />
+                              <select
+                                aria-label="Sort students"
+                                value={sort}
+                                onChange={(event) => setSort(event.target.value as 'asc' | 'desc')}
+                                className="w-full bg-transparent text-sm text-slate-900 outline-none"
+                              >
+                                {SORT_OPTIONS.map((option) => (
+                                  <option key={option.value} value={option.value}>
+                                    {option.label}
+                                  </option>
+                                ))}
+                              </select>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto px-6 py-4">
+                          <div className="space-y-3">
+                            {visibleCompanies.map((company) => {
+                              const active = selectedCompanies.includes(company)
+                              return (
+                                <label
+                                  key={company}
+                                  className={`flex min-w-0 cursor-pointer items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-sm transition ${
+                                    active
+                                      ? 'border-[#4F46E5] bg-[#EFF6FF] text-[#173D6D]'
+                                      : 'border-[#E5E7EB] bg-white text-slate-700 hover:border-[#4F46E5]'
+                                  }`}
+                                >
+                                  <span className="min-w-0 truncate" title={company}>{company}</span>
+                                  <input
+                                    type="checkbox"
+                                    checked={active}
+                                    onChange={() => toggleCompany(company)}
+                                    className="h-4 w-4 rounded border-[#E5E7EB] text-[#4F46E5] focus:ring-[#4F46E5]"
+                                  />
+                                </label>
+                              )
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="sticky bottom-0 z-10 border-t border-slate-200 bg-white px-6 py-4 dark:border-slate-700">
+                          <div className="space-y-3">
+                            <button
+                              type="button"
+                              onClick={clearFilters}
+                              className="w-full rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-3 text-sm font-semibold text-[#173D6D] transition hover:bg-[#EFF6FF]"
+                            >
+                              Reset filters
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setIsFilterDrawerOpen(false)}
+                              className="w-full rounded-3xl bg-[#173D6D] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#122d58]"
+                            >
+                              Apply filters
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   </motion.div>
