@@ -4,6 +4,7 @@ import { APP_TITLE, AUTH_STORAGE_KEY, DASHBOARD_LABEL, LOGOUT_TEXT, PROFILE_ARIA
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const isAuthenticated = window.localStorage.getItem(AUTH_STORAGE_KEY) === 'true'
 
   const handleLogout = () => {
     window.localStorage.setItem(AUTH_STORAGE_KEY, 'false')
@@ -23,26 +24,28 @@ export const Header = () => {
           </div>
         </div>
 
-        <div className="relative">
-          <button
-            aria-label={PROFILE_ARIA_LABEL}
-            onClick={() => setMenuOpen((s) => !s)}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#173D6D] text-sm font-semibold text-white shadow-sm transition hover:bg-[#122d58]"
-          >
-            A
-          </button>
+        {isAuthenticated ? (
+          <div className="relative">
+            <button
+              aria-label={PROFILE_ARIA_LABEL}
+              onClick={() => setMenuOpen((s) => !s)}
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#173D6D] text-sm font-semibold text-white shadow-sm transition hover:bg-[#122d58]"
+            >
+              A
+            </button>
 
-          {menuOpen ? (
-            <div className="absolute right-0 mt-2 w-44 overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900">
-              <button
-                onClick={handleLogout}
-                className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
-              >
-                {LOGOUT_TEXT}
-              </button>
-            </div>
-          ) : null}
-        </div>
+            {menuOpen ? (
+              <div className="absolute right-0 mt-2 w-44 overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900">
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
+                >
+                  {LOGOUT_TEXT}
+                </button>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </header>
   )
