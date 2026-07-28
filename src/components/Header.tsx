@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Logo from '../hooks/assets/adree_logo.svg'
+import Logo from '../assets/adree_logo.svg'
 import { APP_TITLE, AUTH_STORAGE_KEY, DASHBOARD_LABEL, LOGOUT_TEXT, PROFILE_ARIA_LABEL } from '../constants/ui'
 
 export const Header = () => {

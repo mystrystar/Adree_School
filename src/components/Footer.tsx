@@ -1,4 +1,4 @@
-import FooterLogo from '../hooks/assets/adree school footer.png'
+import FooterLogo from '../assets/adree school footer.png'
 import { FOOTER_COPY, FOOTER_ALT } from '../constants/ui'
 
 export const Footer = () => {
